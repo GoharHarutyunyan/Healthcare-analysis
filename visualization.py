@@ -28,14 +28,14 @@ class HealthcareVisual:
         plt.show()
 
     def condition_vis(self):
-        """"Display a pie chart of top 10 medican conditions"""
+        """"Display pie chart of top 10 medican conditions"""
         counts = self.df['Medical Condition'].value_counts().head(10)
         plt.figure(figsize = (8, 8))
         plt.pie(counts, labels = counts.index, autopct='%1.1f%%', startangle = 90)
         plt.title('Top Medical Conditions')
         plt.tight_layout()
         plt.show()
-    
+     
     def billing_distribution_vis(self):
         """Display a histogram of billing amount distribution"""
         plt.hist(self.df['Billing Amount'], bins = 18)

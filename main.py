@@ -26,7 +26,7 @@ def main():
     df = clean.get_cleaned_data()
 
 
-    #Analysis
+    # Analysis
 
     analysis = HealthcareAnalysis(df)
     analysis.dataset_information()
