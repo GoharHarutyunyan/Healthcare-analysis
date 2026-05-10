@@ -12,11 +12,11 @@ class DataCleaning:
     - invalid value improvement(negative billings)
     """
     def __init__(self, df):
-        """initialize data"""
+        """Initialize data"""
         self.df = df
 
     def remove_duplicates(self): 
-        """remove fully duplicate rows from dataset"""
+        """Remove fully duplicate rows from dataset"""
         before_removing = self.df.shape[0] #row count before cleaning
         self.df = self.df.drop_duplicates()
         after_removing = self.df.shape[0] #row count after cleaning
@@ -25,7 +25,7 @@ class DataCleaning:
         print(f'{before_removing - after_removing} duplicate rows were removed') 
 
     def handle_missing_values(self):
-        """handle missing or invalid values in the dataset"""
+        """Handle missing or invalid values in the dataset"""
 
         # changes missing values with median 
         median_billing = np.median(self.df["Billing Amount"].dropna().values)
@@ -38,11 +38,11 @@ class DataCleaning:
         print(f'Missing values handled! Removed {neg_count} negative billing rows.')
 
     def fix_data_types(self):
-        """fix column data types so they match their meaning"""
+        """Fix column data types so they match their meaning"""
 
         # change string date columns into date format 
         for col in ("Date of Admission", "Discharge Date"):
-            self.df[col] = pd.to_datetime(self.df[col], dayfirst=True) #converts string into datetime object for easier access, checks the format dd.mm.yyyy
+            self.df[col] = pd.to_datetime(self.df[col], format="%d.%m.%Y") #converts string into datetime object for easier access
 
         # ensures billing is numeric
         self.df["Billing Amount"] = pd.to_numeric(self.df["Billing Amount"])
@@ -57,5 +57,5 @@ class DataCleaning:
         print("Data types corrected. Dates converted, billing numeric and names normalized.")
 
     def get_cleaned_data(self):
-        """return the fully cleaned DataFrame"""
+        """Return the fully cleaned DataFrame"""
         return self.df

@@ -14,20 +14,20 @@ class HealthcareAnalysis:
     """
     
     def __init__(self, df):
-        """initialize data"""
+        """Initialize data"""
         self.df = df
 
     def dataset_information(self):
-        """dataset information"""
+        """Dataset information"""
         print(f"\n \n DATASET INFORMATION \n {self.df.info()}")
 
     def stat_summary(self):
-        """statistical information summary"""
+        """Statistical information summary"""
         print('\n \n STATISTICAL DATA')
         print(self.df.describe())
 
     def gender_distribution(self):
-        """analyze gender distribution"""
+        """Analyze gender distribution"""
         print('\n \n GENDER DESCRIPTION')
         counts = (self.df['Gender'].value_counts())
         percentages = np.round((counts.values / counts.sum()) * 100, 2)
@@ -38,7 +38,7 @@ class HealthcareAnalysis:
             print(f"{gender}: {count} ({pct}%)")
 
     def common_conditions(self):
-        """print the proportion and frequency of each medical condition"""
+        """Print the proportion and frequency of each medical condition"""
         print("\n \n MEDICAL CONDITION FREQUENCY")
         counts = self.df['Medical Condition'].value_counts()
         for condition, count in counts.items(): ##demonstrates in numbers and percentages
@@ -56,7 +56,7 @@ class HealthcareAnalysis:
         print(highest_bills.head(10))
 
     def correlation_analysis(self):
-        """compute and print correlation between numeric variables"""
+        """Compute and print correlation between numeric variables"""
         print("\n \n CORRELATION ANALYSIS")
 
         numeric_cols = ["Age", "Billing Amount", "Room Number"]
@@ -73,8 +73,10 @@ class HealthcareAnalysis:
             print("Interpretation: Very weak / no linear relationship.")
         elif abs(r) < 0.3:
             print("Interpretation: Weak linear relationship.")
+        elif abs(r) < 0.5:
+            print("Interpretation: Moderate linear relationship.")
         else:
-            print("Interpretation: Moderate-to-strong linear relationship.")
+            print("Interpretation: Strong linear relationship.")
         
     def age_group_analysis(self):
         """Segment patients into age groups and analyse billing per segment."""

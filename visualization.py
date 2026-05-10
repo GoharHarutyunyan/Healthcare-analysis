@@ -24,7 +24,7 @@ class HealthcareVisual:
         plt.show()
 
     def condition_vis(self):
-        """"Display pie chart of top 10 medican conditions"""
+        """"Display pie chart of top 10 medical conditions"""
         counts = self.df['Medical Condition'].value_counts().head(10)
         plt.figure(figsize = (8, 8))
         plt.pie(counts, labels = counts.index, autopct='%1.1f%%', startangle = 90)
@@ -48,7 +48,7 @@ class HealthcareVisual:
         plt.ylabel('Average Billing')
         plt.show()
 
-    def corrrelation_vis(self):
+    def correlation_vis(self):
         """Display a heatmap of correlation between numeric variables"""
         import seaborn as sns
 
@@ -65,7 +65,7 @@ class HealthcareVisual:
 
         #create age groups
         bins = [0, 18, 36, 56, 71, float('inf')]
-        labels = ['Minor(10-17)', 'Young Adult(18-35)', 'Middle Age(35-55)', 'Senior(56-70)', 'Elderly(70+)']
+        labels = ['Minor(0-17)', 'Young Adult(18-35)', 'Middle Age(36-55)', 'Senior(56-70)', 'Elderly(70+)']
         self.df['Age Group'] = pd.cut(self.df['Age'], bins = bins, labels = labels, right = False)
 
         #pie chart - patient distribution
