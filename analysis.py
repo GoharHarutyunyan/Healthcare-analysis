@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv('healthcare_dataset.csv')
-
 #Data Analysis Class
 class HealthcareAnalysis:
     """Performs analysis on a cleaned healthcare Dataframe.
@@ -109,13 +107,5 @@ class HealthcareAnalysis:
             median = round(group_df['Billing Amount'].median(),2)
             print(f"{group}: {count} patients, Avg: {avg}, Median:{median}")
 
-analysis = HealthcareAnalysis(df)
-analysis.dataset_information()
-analysis.stat_summary()
-analysis.gender_distribution()
-analysis.common_conditions()
-analysis.avg_billing()
-analysis.highest_billing()
-analysis.correlation_analysis()
-analysis.age_group_analysis()
+
 

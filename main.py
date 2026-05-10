@@ -35,6 +35,8 @@ def main():
     analysis.common_conditions()
     analysis.avg_billing()
     analysis.highest_billing()
+    analysis.correlation_analysis()
+    analysis.age_group_analysis()
 
 
     #Visualization
