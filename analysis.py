@@ -57,6 +57,57 @@ class HealthcareAnalysis:
         highest_bills = self.df.sort_values( by = 'Billing Amount', ascending = False)
         print(highest_bills.head(10))
 
+    def correlation_analysis(self):
+        """compute and print correlation between numeric variables"""
+        print("\n \n CORRELATION ANALYSIS")
+
+        numeric_cols = ["Age", "Billing Amount", "Room Number"]
+        corr_matrix = self.df[numeric_cols].corr()
+        print(corr_matrix.round(4).to_string())
+
+        # numpy verification of age and billing amount
+        r = np.corrcoef(
+            self.df["Age"].values,
+            self.df["Billing Amount"].values
+        )[0,1]
+        print(f"\n Age vs Billing Amount: {r}")
+        if abs(r) < 0.1:
+            print("Interpretation: Very weak / no linear relationship.")
+        elif abs(r) < 0.3:
+            print("Interpretation: Weak linear relationship.")
+        else:
+            print("Interpretation: Moderate-to-strong linear relationship.")
+        
+    def age_group_analysis(self):
+        """Segment patients into age groups and analyse billing per segment."""
+        print("\n \n AGE GROUP ANALYSIS")
+        
+        # assign each patient to an age group
+        age_groups = []
+        for age in self.df["Age"]:
+            if age < 18:
+                age_groups.append('Minor (0-17)')
+            elif age < 36:
+                age_groups.append('Young Adult (18-35)')
+            elif age < 56:
+                age_groups.append('Middle Age (35-55)')
+            elif age < 71:
+                age_groups.append('Senior (56-70)')
+            else:
+                age_groups.append('Elderly (70+)')
+
+        self.df = self.df.copy()
+        self.df['Age Group'] = age_groups
+
+        # print results for each group
+        groups = ['Minor (0-17)', 'Young Adult (18-35)', 'Middle Age (35-55)', 'Senior (56-70)','Elderly (70+)']
+
+        for group in groups:
+            group_df = self.df[self.df['Age Group'] == group]
+            count = len(group_df)
+            avg = round(group_df['Billing Amount'].mean(),2)
+            median = round(group_df['Billing Amount'].median(),2)
+            print(f"{group}: {count} patients, Avg: {avg}, Median:{median}")
 
 
 analysis = HealthcareAnalysis(df)
@@ -66,4 +117,6 @@ analysis.gender_distribution()
 analysis.common_conditions()
 analysis.avg_billing()
 analysis.highest_billing()
+analysis.correlation_analysis()
+analysis.age_group_analysis()
 
