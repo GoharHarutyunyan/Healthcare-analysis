@@ -48,4 +48,42 @@ class HealthcareVisual:
         plt.ylabel('Average Billing')
         plt.show()
 
+    def corrrelation_vis(self):
+        """Display a heatmap of correlation between numeric variables"""
+        import seaborn as sns
+
+        numeric_columns = ['Age', 'Billing Amount', "Room Number"]
+        corr_matrix = self.df[numeric_columns].corr()
+        plt.figure(figsize=(6, 5))
+        sns.heatmap(corr_matrix, annot = True, fmt = '.4f', cmap = 'coolwarm')
+        plt.title("Correlation Heatmap")
+        plt.tight_layout()
+        plt.show() 
+
+    def age_group_vis(self):
+        """Display pie chart of age group distribution and bar chart for average billing"""
+
+        #create age groups
+        bins = [0, 18, 36, 56, 71, float('inf')]
+        labels = ['Minor(10-17)', 'Young Adult(18-35)', 'Middle Age(35-55)', 'Senior(56-70)', 'Elderly(70+)']
+        self.df['Age Group'] = pd.cut(self.df['Age'], bins = bins, labels = labels, right = False)
+
+        #pie chart - patient distribution
+        counts = self.df['Age Group'].value_counts().reindex(labels)
+        plt.figure(figsize=(7, 7))
+        plt.pie(counts, labels = counts.index, autopct='%1.1f%%', startangle=90)
+        plt.title('Patient Distribution by Agee Group')
+        plt.tight_layout()
+        plt.show()
+
+        #bar chart - average billing per age group
+        avg_billing = self.df.groupby('Age Group', observed = True)['Billing Amount'].mean().reindex(labels)
+        plt.figure(figsize=(8, 5))
+        plt.bar(avg_billing.index, avg_billing.values)
+        plt.title('Average Billing Amount by Age Group')
+        plt.xlabel('Age Group')
+        plt.ylabel('Average Billing Amount')
+        plt.tight_layout()
+        plt.show()
+
 
