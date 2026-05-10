@@ -35,6 +35,8 @@ def main():
     analysis.common_conditions()
     analysis.avg_billing()
     analysis.highest_billing()
+    analysis.correlation_analysis()
+    analysis.age_group_analysis()
 
 
     #Visualization
@@ -45,7 +47,8 @@ def main():
     viz.condition_vis()
     viz.billing_distribution_vis()
     viz.avg_billing_by_gender_vis()
-
+    viz.corrrelation_vis()
+    viz.age_group_vis()
 
 if __name__ == "__main__":
     main()
