@@ -57,6 +57,30 @@ class HealthcareAnalysis:
         highest_bills = self.df.sort_values( by = 'Billing Amount', ascending = False)
         print(highest_bills.head(10))
 
+    def correlation_analysis(self):
+        """compute and print correlation between numeric variables"""
+        print("\n \n CORRELATION ANALYSIS")
+
+        numeric_cols = ["Age", "Billing Amount", "Room Number"]
+        corr_matrix = self.df[numeric_cols].corr()
+        print(corr_matrix.round(4).to_string())
+
+        # numpy verification of age and billing amount
+        r = np.corrcoef(
+            self.df["Age"].values,
+            self.df["Billing Amount"].values
+        )[0,1]
+        print(f"\n Age vs Billing Amount: {r}")
+        if abs(r) < 0.1:
+            print("Interpretation: Very weak / no linear relationship.")
+        elif abs(r) < 0.3:
+            print("Interpretation: Weak linear relationship.")
+        else:
+            print("Interpretation: Moderate-to-strong linear relationship.")
+        
+    def billing_by_condition(self):
+        """"""
+
 
 analysis = HealthcareAnalysis(df)
 analysis.dataset_information()
@@ -65,4 +89,5 @@ analysis.gender_distribution()
 analysis.common_conditions()
 analysis.avg_billing()
 analysis.highest_billing()
+analysis.correlation_analysis()
 
