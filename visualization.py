@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 #Data Visualization Class
 class HealthcareVisual:
@@ -17,35 +18,39 @@ class HealthcareVisual:
 
     def gender_vis(self):
         """Display a bar chart of gender distribution"""
-        self.df['Gender'].value_counts().plot(kind = 'bar')
+        self.df['Gender'].value_counts().plot(kind = 'bar', color=['#4C72B0', '#DD8452'])
         plt.title('Gender Distribution')
         plt.xlabel('Gender')
         plt.ylabel('Count')
+        plt.tight_layout()
         plt.show()
 
     def condition_vis(self):
         """"Display pie chart of top 10 medical conditions"""
         counts = self.df['Medical Condition'].value_counts().head(10)
-        plt.figure(figsize = (8, 8))
+        plt.figure(figsize = (8, 6))
         plt.pie(counts, labels = counts.index, autopct='%1.1f%%', startangle = 90)
-        plt.title('Top Medical Conditions')
+        plt.title('Top Medical Conditions', fontsize=14, fontweight='bold', pad=12)
         plt.tight_layout()
         plt.show()
      
     def billing_distribution_vis(self):
         """Display a histogram of billing amount distribution"""
         plt.hist(self.df['Billing Amount'], bins = 18)
-        plt.title('Billing Amount Distribution')
+        plt.title('Billing Amount Distribution', fontsize=14, fontweight='bold', pad=12)
         plt.xlabel('Billing Amount')
         plt.ylabel('Frequency')
+        plt.legend()
+        plt.tight_layout()
         plt.show()
 
     def avg_billing_by_gender_vis(self):
         '''Display a bar chart of average billing amount by gender'''
-        self.df.groupby('Gender')['Billing Amount'].mean().plot(kind = 'bar')
-        plt.title('Average Billing by Gender')
+        self.df.groupby('Gender')['Billing Amount'].mean().plot(kind = 'bar',  color=['#4C72B0', '#DD8452'])
+        plt.title('Average Billing by Gender', fontsize=14, fontweight='bold', pad=12)
         plt.xlabel('Gender')
         plt.ylabel('Average Billing')
+        plt.tight_layout()
         plt.show()
 
     def correlation_vis(self):
@@ -56,7 +61,7 @@ class HealthcareVisual:
         corr_matrix = self.df[numeric_columns].corr()
         plt.figure(figsize=(6, 5))
         sns.heatmap(corr_matrix, annot = True, fmt = '.4f', cmap = 'coolwarm')
-        plt.title("Correlation Heatmap")
+        plt.title("Correlation Heatmap", fontsize=14, fontweight='bold', pad=12)
         plt.tight_layout()
         plt.show() 
 
@@ -72,18 +77,18 @@ class HealthcareVisual:
         counts = self.df['Age Group'].value_counts().reindex(labels)
         plt.figure(figsize=(7, 7))
         plt.pie(counts, labels = counts.index, autopct='%1.1f%%', startangle=90)
-        plt.title('Patient Distribution by Agee Group')
+        plt.title('Patient Distribution by Agee Group', fontsize=14, fontweight='bold', pad=12)
         plt.tight_layout()
         plt.show()
 
-        #bar chart - average billing per age group
-        avg_billing = self.df.groupby('Age Group', observed = True)['Billing Amount'].mean().reindex(labels)
-        plt.figure(figsize=(8, 5))
-        plt.bar(avg_billing.index, avg_billing.values)
-        plt.title('Average Billing Amount by Age Group')
-        plt.xlabel('Age Group')
-        plt.ylabel('Average Billing Amount')
-        plt.tight_layout()
-        plt.show()
+        # #bar chart - average billing per age group
+        # avg_billing = self.df.groupby('Age Group', observed = True)['Billing Amount'].mean().reindex(labels)
+        # plt.figure(figsize=(8, 6))
+        # plt.bar(avg_billing.index, avg_billing.values)
+        # plt.title('Average Billing Amount by Age Group', fontsize=14, fontweight='bold', pad=12)
+        # plt.xlabel('Age Group')
+        # plt.ylabel('Average Billing Amount')
+        # plt.tight_layout()
+        # plt.show()
 
 
