@@ -12,11 +12,7 @@ class HealthcareVisual:
     """
 
     def __init__(self, df):
-        """Initialize with a healthcare DataFrame
-        
-        Args:
-            df (pd.DataFrame) : Cleaned healthcare dataset
-        """
+        """Initialize with a healthcare DataFrame"""
         self.df = df
 
     def gender_vis(self):
