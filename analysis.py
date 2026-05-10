@@ -78,9 +78,36 @@ class HealthcareAnalysis:
         else:
             print("Interpretation: Moderate-to-strong linear relationship.")
         
-    def billing_by_condition(self):
-        """"""
+    def age_group_analysis(self):
+        """Segment patients into age groups and analyse billing per segment."""
+        print("\n \n AGE GROUP ANALYSIS")
+        
+        # assign each patient to an age group
+        age_groups = []
+        for age in self.df["Age"]:
+            if age < 18:
+                age_groups.append('Minor (0-17)')
+            elif age < 36:
+                age_groups.append('Young Adult (18-35)')
+            elif age < 56:
+                age_groups.append('Middle Age (35-55)')
+            elif age < 71:
+                age_groups.append('Senior (56-70)')
+            else:
+                age_groups.append('Elderly (70+)')
 
+        self.df = self.df.copy()
+        self.df['Age Group'] = age_groups
+
+        # print results for each group
+        groups = ['Minor (0-17)', 'Young Adult (18-35)', 'Middle Age (35-55)', 'Senior (56-70)','Elderly (70+)']
+
+        for group in groups:
+            group_df = self.df[self.df['Age Group'] == group]
+            count = len(group_df)
+            avg = round(group_df['Billing Amount'].mean(),2)
+            median = round(group_df['Billing Amount'].median(),2)
+            print(f"{group}: {count} patients, Avg: {avg}, Median:{median}")
 
 analysis = HealthcareAnalysis(df)
 analysis.dataset_information()
@@ -90,4 +117,5 @@ analysis.common_conditions()
 analysis.avg_billing()
 analysis.highest_billing()
 analysis.correlation_analysis()
+analysis.age_group_analysis()
 
